@@ -15,9 +15,11 @@ const data = {
   ],
 };
 let selectedList = 'Personal';
-let activeList = data.personal;
+let activeTasks = data.personal;
 
 // Initialize App
+
+// Initialize ListView
 const taskLists = qs('.task-list');
 const populateListOfLists = function () {
   taskLists.innerHTML = null;
@@ -27,7 +29,22 @@ const populateListOfLists = function () {
     taskLists.innerHTML += `<li class='list-name ${myClass}'>${list} </li>`;
   });
 };
-const populateActiveList = function () {};
+
+// Initialize TaskView
+const listTitle = qs('.todo-title');
+const tasks = qs('.todo-tasks');
+const populateActiveTasks = function () {
+  listTitle.innerText = selectedList;
+  tasks.innerHTML = '';
+  activeTasks.forEach((task, key) => {
+    tasks.innerHTML += `
+    <div class="task">
+      <input type="checkbox" id="task-${key + 1}" />
+      <label for="task-2">
+        <span class="custom-checkbox"></span>${task}</label>
+    </div>`;
+  });
+};
 populateListOfLists();
 populateActiveTasks();
 
@@ -64,8 +81,8 @@ const removeActiveClassFromListName = function () {
   });
 };
 
-const switchActiveList = function () {
-  activeList = data[selectedList];
+const switchActiveTasks = function () {
+  activeTasks = data[selectedList];
 };
 
 lists.forEach((list) => {
@@ -73,6 +90,7 @@ lists.forEach((list) => {
     removeActiveClassFromListName();
     e.target.classList.add('active-list');
     selectedList = e.target.innerHTML.trim();
-    switchActiveList(e);
+    switchActiveTasks();
+    populateActiveTasks();
   });
 });
