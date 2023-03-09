@@ -51,13 +51,14 @@ body {
 
 .list-name {
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .list-name:hover {
   opacity: 0.75;
 }
 
-form {
+.form {
   display: flex;
 }
 
